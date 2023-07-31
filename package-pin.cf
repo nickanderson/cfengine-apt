@@ -1,0 +1,38 @@
+body file control{
+      namespace => "apt";
+}
+bundle agent package_version_pinned( name, version, present_absent )
+# @brief Ensure that `name` is pinned to `version` for the apt package manager or not based on the desired state
+# @param `name` The name of the package to pin, case matters.
+# @param `version` The version of the package to pin
+# @param `present_absent` The desired state of the package pin (present|absent), case does not matter. Note: the version does not matter when absent is specified.
+{
+  vars:
+      "default_preferences_dir"
+        string => "/etc/apt/preferences.d";
+
+      "preferences_dir"
+        string => "$(default_preferences_dir)",
+        unless => isvariable( "$(this.promiser)" ),
+        comment => "We allow the apt preferences.d directory to be overridden for ease of testing.";
+
+  files:
+      "$(preferences_dir)/."
+        perms => default:mog( "755", "root", "root" ),
+        if => regcmp( "(?i)present", "$(present_absent)" ),
+        comment => concat( "If we are promising that a package",
+                           " should be pinned, the configuration",
+                           " directory should exist." );
+
+      "$(preferences_dir)/$(name)"
+        perms => default:mog( "644", "root", "root" ),
+        content => concat( "# Managed by CFEngine", "$(const.n)",
+                           "Package: $(name)", "$(const.n)",
+                           "Pin: version $(version)", "$(const.n)",
+                           "Pin-Priority: 999", "$(const.n)" ),
+        if => regcmp( "(?i)present", "$(present_absent)" );
+
+      "$(preferences_dir)/$(name)"
+        delete => default:tidy,
+        if => regcmp( "(?i)absent", "$(present_absent)" );
+}

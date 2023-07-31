@@ -1,0 +1,63 @@
+body file control{
+      inputs => { "$(sys.policy_entry_dirname)/../package-pin.cf",
+                  "$(sys.libdir)/testing.cf",
+                  "$(sys.libdir)/stdlib.cf" };
+}
+bundle agent __main__
+{
+  methods:
+      "test";
+      "check";
+
+}
+bundle agent test
+{
+  methods:
+      "Ensure apt package is pinned to version"
+        usebundle => apt:package_version_pinned( "zpackage", "1.2.3", "present" );
+
+      "Ensure apt package is pinned to version"
+        usebundle => apt:package_version_pinned( "apackage", "1.2.3", "present" );
+
+      "Ensure apt package is pinned to version"
+        usebundle => apt:package_version_pinned( "apackage", "It doesn't matter", "AbSent" );
+
+}
+bundle agent check
+{
+  methods:
+      "check_state";
+      "check_report";
+}
+bundle agent check_state
+{
+  commands:
+      "/bin/echo test_zpackage_pin_present passed"
+        classes => results( "namespace", "test_zpackage_pin_present" ),
+        if => fileexists( "$(apt:package_version_pinned.preferences_dir)/zpackage" );
+
+      "/bin/echo test_apackage_pin_absent passed"
+        classes => results( "namespace", "test_apackage_pin_absent" ),
+        if => not( fileexists( "$(apt:package_version_pinned.preferences_dir)/apackage" ) );
+}
+bundle agent check_report
+{
+  methods:
+      "Test that zpackage pin exists"
+        usebundle => testing_ok_if("test_zpackage_pin_present_repaired",
+                                   "Test that zpackage pin file is present",
+                                   "error: zpackage pin not present",
+                                   "trace",
+                                   "jUnit");
+
+      "Test that apackage pin is absent"
+        usebundle => testing_ok_if("test_apackage_pin_absent_repaired",
+                                   "Test that apackage pin file is absent",
+                                   "error: apackage pin present",
+                                   "trace",
+                                   "jUnit");
+
+      # Write out the jUnit report
+      "jUnit Report"
+        usebundle => testing_junit_report( "$(this.promise_filename).test-result.xml" );
+}

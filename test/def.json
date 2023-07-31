@@ -1,0 +1,7 @@
+{
+    "variables": {
+        "apt:package_version_pinned.preferences_dir": {
+            "value": "$(sys.policy_entry_dirname)"
+        }
+    }
+}
