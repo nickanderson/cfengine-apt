@@ -5,6 +5,8 @@ Policy to manage aspects of the =apt= package manager.
 *** apt-pin-packages
 - *Bundle* - =apt:pin_packages=
 
+This module handles managing package pin configurations for a set of packages. It leverages =library-apt-pin-package-version-priority=. Its primarily configured by the variable =apt:pin_packages.config=. This module is designed to integrate well with CFEngine Build module inputs, group data, and host specific data in CFEngine Enterprise Mission Portal.
+
 *** library-apt-pin-package-version-priority
 - *Bundle* - =apt:package_version_priority_pinned(name, version, priority, state)=
 - =name= - The name of the package.
