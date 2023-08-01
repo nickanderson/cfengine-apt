@@ -10,20 +10,21 @@
       "by": "https://github.com/nickanderson",
       "repo": "https://github.com/nickanderson/cfengine-apt",
       "steps": [
-          "copy policy/pin-package.cf services/cfbs/modules/library-apt-pin-package-version-priority/pin-package.cf",
-          "policy_files services/cfbs/modules/library-apt-pin-package-version-priority/pin-package.cf"
-        ]
+        "copy policy/pin-package.cf services/cfbs/modules/library-apt-pin-package-version-priority/pin-package.cf",
+        "policy_files services/cfbs/modules/library-apt-pin-package-version-priority/pin-package.cf"
+      ]
     },
-     "apt-pin-packages": {
-         "description": "Specify a set of packages and their pinned states with version and priority.",
-         "tags": ["management"],
-         "version": "0.0.1",
-         "by": "https://github.com/nickanderson",
-         "repo": "https://github.com/nickanderson/cfengine-apt",
-         "steps": [
-             "copy policy/apt-pin-packages.cf services/cfbs/modules/apt-pin-packages/apt-pin-packages.cf",
-             "policy_files services/cfbs/modules/library-apt-pin-package-version-priority/pin-package.cf"
-         ]
-     }
+    "apt-pin-packages": {
+      "description": "Specify a set of packages and their pinned states with version and priority.",
+      "tags": ["management"],
+      "version": "0.0.1",
+      "dependencies": ["library-apt-pin-package-version-priority"],
+      "by": "https://github.com/nickanderson",
+      "repo": "https://github.com/nickanderson/cfengine-apt",
+      "steps": [
+        "copy policy/apt-pin-packages.cf services/cfbs/modules/apt-pin-packages/apt-pin-packages.cf",
+        "policy_files services/cfbs/modules/library-apt-pin-package-version-priority/pin-package.cf"
+      ]
+    }
   }
 }
