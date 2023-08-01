@@ -1,0 +1,28 @@
+body file control{
+      namespace => "apt";
+}
+bundle agent pin_packages
+{
+  vars:
+      "config" data => '{
+  "zpackage": {
+    "version": "1.2.3",
+    "priority": "999",
+    "state": "present"
+  },
+  "apackage": {
+    "version": "0",
+    "priority": "0",
+    "state": "absent"
+  }
+}';
+
+      "i" slist => getindices( config );
+
+  methods:
+      "Ensure apt packages are pinned or not as desired"
+        usebundle => apt:package_version_priority_pinned( "$(i)",
+                                                          "$(config[$(i)][version])",
+                                                          "$(config[$(i)][priority])",
+                                                          "$(config[$(i)][state])");
+}

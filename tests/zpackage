@@ -1,0 +1,4 @@
+# Managed by CFEngine
+Package: zpackage
+Pin: version 1.2.3
+Pin-Priority: 999

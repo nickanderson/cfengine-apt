@@ -1,11 +1,12 @@
 body file control{
       namespace => "apt";
 }
-bundle agent package_version_pinned( name, version, present_absent )
+bundle agent package_version_priority_pinned( name, version, priority, state )
 # @brief Ensure that `name` is pinned to `version` for the apt package manager or not based on the desired state
 # @param `name` The name of the package to pin, case matters.
 # @param `version` The version of the package to pin
-# @param `present_absent` The desired state of the package pin (present|absent), case does not matter. Note: the version does not matter when absent is specified.
+# @param `priority` The version of the package to pin
+# @param `state` The desired state of the package pin (present|absent), case does not matter. Note: the version does not matter when absent is specified.
 {
   vars:
       "default_preferences_dir"
@@ -19,7 +20,7 @@ bundle agent package_version_pinned( name, version, present_absent )
   files:
       "$(preferences_dir)/."
         perms => default:mog( "755", "root", "root" ),
-        if => regcmp( "(?i)present", "$(present_absent)" ),
+        if => regcmp( "(?i)present", "$(state)" ),
         comment => concat( "If we are promising that a package",
                            " should be pinned, the configuration",
                            " directory should exist." );
@@ -29,10 +30,10 @@ bundle agent package_version_pinned( name, version, present_absent )
         content => concat( "# Managed by CFEngine", "$(const.n)",
                            "Package: $(name)", "$(const.n)",
                            "Pin: version $(version)", "$(const.n)",
-                           "Pin-Priority: 999", "$(const.n)" ),
-        if => regcmp( "(?i)present", "$(present_absent)" );
+                           "Pin-Priority: $(priority)", "$(const.n)" ),
+        if => regcmp( "(?i)present", "$(state)" );
 
       "$(preferences_dir)/$(name)"
         delete => default:tidy,
-        if => regcmp( "(?i)absent", "$(present_absent)" );
+        if => regcmp( "(?i)absent", "$(state)" );
 }

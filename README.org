@@ -1,0 +1,29 @@
+Policy to manage aspects of the =apt= package manager.
+
+** Modules
+
+*** apt-pin-packages
+- *Bundle* - =apt:pin_packages=
+
+*** library-apt-pin-package-version-priority
+- *Bundle* - =apt:package_version_priority_pinned(name, version, priority, state)=
+- =name= - The name of the package.
+- =version= - The version of the package to pin.
+- =priority= - The priority of the package pin.
+- =state= - The desired configuration state of the pin. The value should be =present= or =absent=.
+
+#+begin_src cfengine3 :exports code
+bundle agent example
+{
+  methods:
+      "Ensure apt package is pinned to version"
+        usebundle => apt:package_version_priority_pinned( "zpackage",
+                                                          "1.2.3",
+                                                          "999",
+                                                          "present" );
+  }
+#+end_src
+
+** Variables
+- =apt:package_version_priority_pinned.preferences_dir= - String setting the directory where configuration files for apt package pinning should be managed. Defaults to =/etc/apt/preferences.d/=.
+- =apt:pin_packages.config= - Data container of objects keyed by the package name with =version=, =priority=, and =state= keys.
