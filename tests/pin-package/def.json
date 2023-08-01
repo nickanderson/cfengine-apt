@@ -1,7 +1,7 @@
 {
     "variables": {
         "apt:package_version_priority_pinned.preferences_dir": {
-            "value": "$(sys.policy_entry_dirname)"
+            "value": "$(sys.policy_entry_dirname)/artifacts"
         }
     }
 }

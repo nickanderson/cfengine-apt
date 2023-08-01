@@ -1,5 +1,6 @@
 body file control{
-      inputs => { "$(sys.policy_entry_dirname)/../policy/pin-package.cf",
+      inputs => { "$(sys.policy_entry_dirname)/../../policy/apt-pin-packages.cf",
+                  "$(sys.policy_entry_dirname)/../../policy/pin-package.cf",
                   "$(sys.libdir)/testing.cf",
                   "$(sys.libdir)/stdlib.cf" };
 }
@@ -26,17 +27,9 @@ bundle agent init
 bundle agent test
 {
   methods:
-      "Ensure apt package is pinned to version"
-        usebundle => apt:package_version_priority_pinned( "zpackage",
-                                                          "1.2.3",
-                                                          "999",
-                                                          "present" );
-
-      "Ensure apt package is pinned to version"
-        usebundle => apt:package_version_priority_pinned( "apackage",
-                                                 "It doesn't matter",
-                                                 "It doesn't matter",
-                                                 "AbSent" );
+      # Configured via def.json in same directory
+      "Ensure apt packages are pinned as configured in def.json"
+        usebundle => apt:pin_packages;
 }
 bundle agent check
 {
@@ -74,5 +67,5 @@ bundle agent check_report
 
       # Write out the jUnit report
       "jUnit Report"
-        usebundle => testing_junit_report( "$(this.promise_filename).test-result.xml" );
+        usebundle => testing_junit_report( "$(this.promise_filename)/artifacts/.test-result.xml" );
 }

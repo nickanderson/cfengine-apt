@@ -1,0 +1,21 @@
+{
+    "variables": {
+        "apt:package_version_priority_pinned.preferences_dir": {
+            "value": "$(sys.policy_entry_dirname)/artifacts"
+        },
+        "apt:pin_packages.config": {
+            "value": {
+                "zpackage": {
+                    "version": "1.2.3",
+                    "priority": "999",
+                    "state": "present"
+                },
+                "apackage": {
+                    "version": "0",
+                    "priority": "0",
+                    "state": "absent"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,78 @@
+body file control{
+      inputs => { "$(sys.policy_entry_dirname)/../../policy/pin-package.cf",
+                  "$(sys.libdir)/testing.cf",
+                  "$(sys.libdir)/stdlib.cf" };
+}
+bundle agent __main__
+{
+  methods:
+      "init";
+      "test";
+      "check";
+
+}
+bundle agent init
+{
+  methods:
+
+      "Ensure apt package is pinned to version"
+        comment => concat( "We need a pinned configuration to exist so",
+                           "that we can test purging it." ),
+        usebundle => apt:package_version_priority_pinned( "apackage",
+                                                          "1.2.3",
+                                                          "999",
+                                                          "present" );
+}
+bundle agent test
+{
+  methods:
+      "Ensure apt package is pinned to version"
+        usebundle => apt:package_version_priority_pinned( "zpackage",
+                                                          "1.2.3",
+                                                          "999",
+                                                          "present" );
+
+      "Ensure apt package is pinned to version"
+        usebundle => apt:package_version_priority_pinned( "apackage",
+                                                 "It doesn't matter",
+                                                 "It doesn't matter",
+                                                 "AbSent" );
+}
+bundle agent check
+{
+  methods:
+      "check_state";
+      "check_report";
+}
+bundle agent check_state
+{
+  commands:
+      "/bin/echo File for pinned package exists as expected"
+        classes => results( "namespace", "test_pinned_package_config_file_present" ),
+        if => fileexists( "$(apt:package_version_priority_pinned.preferences_dir)/zpackage" );
+
+      "/bin/echo File for pinned package absent as expected"
+        classes => results( "namespace", "test_pinned_package_config_file_absent" ),
+        if => not( fileexists( "$(apt:package_version_priority_pinned.preferences_dir)/apackage" ) );
+}
+bundle agent check_report
+{
+  methods:
+      "Test that zpackage pin exists"
+        usebundle => testing_ok_if("test_pinned_package_config_file_present_repaired",
+                                   "Test that config file for pinned package is present",
+                                   "error: Pinned package config $(apt:package_version_pinned_priority.preferences_dir)/zpackage missing",
+                                   "trace",
+                                   "jUnit");
+
+      "Test that apackage pin is absent"
+        usebundle => testing_ok_if("test_pinned_package_config_file_absent_repaired",
+                                   "Test that config file for pinned package is absent",
+                                   "error: Pinned package config $(apt:package_version_pinned_priority.preferences_dir)/apackage present",
+                                   "trace",
+                                   "jUnit");
+
+      # Write out the jUnit report
+      "jUnit Report"
+        usebundle => testing_junit_report( "$(this.promise_dirname)/artifacts/test-result.xml" );
+}
