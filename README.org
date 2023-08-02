@@ -5,7 +5,19 @@ Policy to manage aspects of the =apt= package manager.
 *** apt-pin-packages
 - *Bundle* - =apt:pin_packages=
 
-This module handles managing package pin configurations for a set of packages. It leverages =library-apt-pin-package-version-priority=. Its primarily configured by the variable =apt:pin_packages.config=. This module is designed to integrate well with CFEngine Build module inputs, group data, and host specific data in CFEngine Enterprise Mission Portal.
+This module handles managing package pin configurations for a set of packages. It leverages =library-apt-pin-package-version-priority=. Its primarily configured by the variable =apt:pin_packages.config=. This module is designed to integrate well with CFEngine Build module inputs, group data, and host specific data in CFEngine Enterprise Mission Portal as illustrated by the following screen shots.
+
+Here we can see Groups defined for Ubuntu:
+[[https://raw.githubusercontent.com/nickanderson/cfengine-apt/main/media/ubuntu-groups.png]]
+
+Here we can see the =Ubuntu= group (all hosts reporting the =ubuntu= class with configuration to pin =mdadm=:
+[[https://raw.githubusercontent.com/nickanderson/cfengine-apt/main/media/ubuntu-pin-mdadm.png]]
+
+Here we can see the =Ubuntu= group (all hosts reporting the =ubuntu= class with configuration to pin =ufw=:
+[[https://raw.githubusercontent.com/nickanderson/cfengine-apt/main/media/ubuntu-22-pin-ufw.png]]
+
+And here we can see the behavior of ~apt~ before and after application of the policy on an Ubuntu 22 host. Notice that =mdadm= and =ufw= are no longer available upgrades:
+[[https://raw.githubusercontent.com/nickanderson/cfengine-apt/main/media/apt-behavior.png]]
 
 *** library-apt-pin-package-version-priority
 - *Bundle* - =apt:package_version_priority_pinned(name, version, priority, state)=
