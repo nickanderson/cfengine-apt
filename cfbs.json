@@ -39,13 +39,13 @@
               "key": "version",
               "type": "string",
               "label": "Version",
-              "question": "Version of package to pin?"
+              "question": "Version to pin?"
             },
             {
               "key": "priority",
               "type": "int",
               "label": "Priority",
-              "question": "Priority for package pin?"
+              "question": "Priority of pin?"
             },
             {
               "key": "state",
