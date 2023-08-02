@@ -24,7 +24,7 @@
       "steps": [
         "copy policy/apt-pin-packages.cf services/cfbs/modules/apt-pin-packages/apt-pin-packages.cf",
         "bundles apt:pin_packages",
-        "policy_files services/cfbs/modules/library-apt-pin-package-version-priority/pin-package.cf"
+        "policy_files services/cfbs/modules/apt-pin-packages/apt-pin-packages.cf"
       ]
     }
   }
