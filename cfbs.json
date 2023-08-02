@@ -59,6 +59,7 @@
       ],
       "steps": [
         "copy policy/apt-pin-packages.cf services/cfbs/modules/apt-pin-packages/apt-pin-packages.cf",
+        "input apt-pin-packages/input.json def.json",
         "bundles apt:pin_packages",
         "policy_files services/cfbs/modules/apt-pin-packages/apt-pin-packages.cf"
       ]
