@@ -5,15 +5,21 @@ bundle agent pin_packages
 {
 
   vars:
-  # config is expected to be defined as a list of objects
-  #     "config" data => '[
-  #                         { "package": "zpackage", "version": "1.2.3", "priority": "999", "state": "present"},
-  #                         { "package": "apackage", "version": "0", "priority": "0", "state": "absent"}
-  #                       ]';
+    apt_package_manager_supported::
+      # config is expected to be defined as a list of objects
+      #     "config" data => '[
+      #                         { "package": "zpackage", "version": "1.2.3", "priority": "999", "state": "present"},
+      #                         { "package": "apackage", "version": "0", "priority": "0", "state": "absent"}
+      #                       ]';
 
       "i" slist => getindices( config );
 
+  classes:
+      "apt_package_manager_supported"
+        or => { "ubuntu", "debian" };
+
   methods:
+    apt_package_manager_supported::
       "Ensure apt packages are pinned or not as desired"
         usebundle => apt:package_version_priority_pinned( "$(config[$(i)][package])",
                                                           "$(config[$(i)][version])",
