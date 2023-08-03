@@ -49,23 +49,25 @@ bundle agent example
         }
     }
   #+end_src
-- =apt:pin_packages.config= - Data container of objects keyed by the package name with =version=, =priority=, and =state= keys.
+- =apt:pin_packages.config= - Data container array of anonymous objects containing =package=, =version=, =priority=, and =state= keys.
   #+begin_src json
     {
         "variables": {
             "apt:pin_packages.config": {
-                "value": {
-                    "zpackage": {
+                "value": [
+                    {
+                        "package": "zpackage",
                         "version": "1.2.3",
                         "priority": "999",
                         "state": "present"
                     },
-                    "apackage": {
+                    {
+                        "package": "apackage",
                         "version": "0",
                         "priority": "0",
                         "state": "absent"
                     }
-                }
+                ]
             }
         }
     }
