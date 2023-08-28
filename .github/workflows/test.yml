@@ -1,0 +1,10 @@
+# https://docs.github.com/en/actions/quickstart
+name: test cfengine-apt module
+on: [push]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      - run: ci/docker.sh

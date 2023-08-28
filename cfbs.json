@@ -30,8 +30,7 @@
       "tags": ["local"],
       "added_by": "cfbs add",
       "steps": [
-        "directory ./ services/cfbs/tests/",
-        "policy_files services/cfbs/tests/"
+        "directory ./ services/cfbs/tests/"
       ]
     }
   ],
