@@ -23,6 +23,16 @@
         "directory ./ services/cfbs/policy/",
         "policy_files services/cfbs/policy/"
       ]
+    },
+    {
+      "name": "./tests/",
+      "description": "Local subdirectory added using cfbs command line",
+      "tags": ["local"],
+      "added_by": "cfbs add",
+      "steps": [
+        "directory ./ services/cfbs/tests/",
+        "policy_files services/cfbs/tests/"
+      ]
     }
   ],
   "git": true
