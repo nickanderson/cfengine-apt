@@ -1,68 +1,7 @@
 {
-  "name": "cfengine-apt",
-  "description": "Policy to manage aspects of the apt package manager.",
-  "type": "module-repo",
-  "provides": {
-    "library-apt-pin-package-version-priority": {
-      "description": "Specify a packages pinned state with version and priority.",
-      "tags": ["management"],
-      "version": "0.0.1",
-      "by": "https://github.com/nickanderson",
-      "repo": "https://github.com/nickanderson/cfengine-apt",
-      "steps": [
-        "copy policy/pin-package.cf services/cfbs/modules/library-apt-pin-package-version-priority/pin-package.cf",
-        "policy_files services/cfbs/modules/library-apt-pin-package-version-priority/pin-package.cf"
-      ]
-    },
-    "apt-pin-packages": {
-      "description": "Specify a set of packages and their pinned states with version and priority.",
-      "tags": ["management"],
-      "version": "0.0.1",
-      "dependencies": ["library-apt-pin-package-version-priority"],
-      "by": "https://github.com/nickanderson",
-      "repo": "https://github.com/nickanderson/cfengine-apt",
-      "input": [
-        {
-          "type": "list",
-          "variable": "config",
-          "namespace": "apt",
-          "bundle": "pin_packages",
-          "label": "Pinned package configuration",
-          "subtype": [
-            {
-              "key": "package",
-              "type": "string",
-              "label": "Package",
-              "question": "Package name to pin?"
-            },
-            {
-              "key": "version",
-              "type": "string",
-              "label": "Version",
-              "question": "Version to pin?"
-            },
-            {
-              "key": "priority",
-              "type": "string",
-              "label": "Priority",
-              "question": "Priority of pin?"
-            },
-            {
-              "key": "state",
-              "type": "string",
-              "label": "State",
-              "question": "What state should this package pin configuration have? (present|absent)"
-            }
-          ],
-          "while": "Do you want to specify more pinned package configurations?"
-        }
-      ],
-      "steps": [
-        "copy policy/apt-pin-packages.cf services/cfbs/modules/apt-pin-packages/apt-pin-packages.cf",
-        "input apt-pin-packages/input.json def.json",
-        "bundles apt:pin_packages",
-        "policy_files services/cfbs/modules/apt-pin-packages/apt-pin-packages.cf"
-      ]
-    }
-  }
+  "name": "Example project",
+  "type": "policy-set",
+  "description": "Example description",
+  "build": [],
+  "git": true
 }
