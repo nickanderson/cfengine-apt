@@ -7,4 +7,5 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v3
+      - run: apt update && apt install python3-pip && pip3 install cfbs
       - run: ci/docker.sh
