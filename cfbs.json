@@ -2,6 +2,45 @@
   "name": "cfengine-apt",
   "description": "Policy to manage aspects of the apt package manager.",
   "type": "module-repo",
+  "build": [
+    {
+      "name": "masterfiles",
+      "description": "Official CFEngine Masterfiles Policy Framework (MPF).",
+      "tags": ["supported", "base"],
+      "repo": "https://github.com/cfengine/masterfiles",
+      "by": "https://github.com/cfengine",
+      "version": "3.21.2",
+      "commit": "f495603285f9bd90d5d36df4fec4870aeee751e8",
+      "added_by": "cfbs add",
+      "steps": ["run ./prepare.sh -y", "copy ./ ./"]
+    },
+    {
+      "name": "./policy/",
+      "description": "Local subdirectory added using cfbs command line",
+      "tags": ["local"],
+      "added_by": "cfbs add",
+      "steps": [
+        "directory ./ services/cfbs/policy/",
+        "policy_files services/cfbs/policy/"
+      ]
+    },
+    {
+      "name": "./tests/",
+      "description": "Local subdirectory added using cfbs command line",
+      "tags": ["local"],
+      "added_by": "cfbs add",
+      "steps": ["directory ./ services/cfbs/tests/"]
+    },
+    {
+      "name": "./overlay/",
+      "description": "Local subdirectory added using cfbs command line",
+      "tags": ["local"],
+      "added_by": "cfbs add",
+      "steps": [
+        "directory ./ ./"
+      ]
+    }
+  ],
   "provides": {
     "library-apt-pin-package-version-priority": {
       "description": "Specify a packages pinned state with version and priority.",
