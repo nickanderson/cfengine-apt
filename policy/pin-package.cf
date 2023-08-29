@@ -10,7 +10,7 @@ bundle agent package_version_priority_pinned( name, version, priority, state )
 {
   vars:
       "default_preferences_dir"
-        string => "/etc/apt/prexerences.d";
+        string => "/etc/apt/preferences.d";
 
       "preferences_dir"
         string => "$(default_preferences_dir)",
