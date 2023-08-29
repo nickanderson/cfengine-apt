@@ -67,5 +67,5 @@ bundle agent check_report
 
       # Write out the jUnit report
       "jUnit Report"
-        usebundle => testing_junit_report( "$(this.promise_dirname)/artifacts/.test-result.xml" );
+        usebundle => testing_junit_report( "$(this.promise_dirname)/artifacts/test-result.xml" );
 }

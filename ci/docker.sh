@@ -13,18 +13,11 @@ name=test
 # to debug things inside the container as it "will be" run
 #docker run -it -v "${PROJECT_ROOT}/out/masterfiles":/var/cfengine/inputs $image bash
 
-# start the container, for repeated use
-sudo ls -la /var/lib/docker
-sudo systemctl start docker
-sudo systemctl enable docker
-sudo docker run -d -v "${PROJECT_ROOT}/out/masterfiles":/var/cfengine/inputs --name $name $image
-
 # validate policy
-docker exec -i $name sh -c "cf-promises"
+docker run -v "${PROJECT_ROOT}/out/masterfiles":/var/cfengine/inputs $image sh -c "cf-promises"
 
 # run tests
 for test in $(find tests -name '*.cf'); do
-  docker exec -i $name sh -c "cf-agent -KIf services/cfbs/$test"
+  docker run -v "${PROJECT_ROOT}/out/masterfiles":/var/cfengine/inputs $image sh -c "cf-agent -KIf services/cfbs/$test"
 done
 
-find . -name 'test-result.xml'
