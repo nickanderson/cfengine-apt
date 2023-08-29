@@ -22,5 +22,5 @@ for test in $(find tests -name '*.cf'); do
 done
 whoami
 # cfengine policy seems to create dirs owned by root:root even outside the container :( so fix it
-sudo chown -R $(whoami) out/masterfiles/services/cfbs/tests
-find . -type f -name 'test*xml'
+#sudo chown -R $(whoami) out/masterfiles/services/cfbs/tests
+find . -type -f name '*.tap' | xargs cat
