@@ -227,11 +227,6 @@ bundle agent testing_generic_report(format, outfile)
     tap.stdout::
       "$(const.n)1..$(count_total)" ;
 
-    any::
-      "CRAIG: ${with}" with => storejson(bundlestate("testing_generic_report"));
-    tap::
-      "CRAIG, tap_tests: ${with}" with => storejson(tap_tests);
-
     inform_mode::
       "$(this.bundle): report summary: $(out)";
     tap.inform_mode::
