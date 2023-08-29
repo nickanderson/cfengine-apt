@@ -16,6 +16,8 @@ name=test
 # validate policy
 docker run -v "${PROJECT_ROOT}/out/masterfiles":/var/cfengine/inputs $image sh -c "cf-promises"
 
+docker run $image sh -c "whoami; id"
+
 # run tests
 for test in $(find tests -name '*.cf'); do
   docker run -v "${PROJECT_ROOT}/out/masterfiles":/var/cfengine/inputs $image sh -c "cf-agent -KIf services/cfbs/$test"
