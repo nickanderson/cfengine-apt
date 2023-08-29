@@ -14,7 +14,7 @@ name=test
 #docker run -it -v "${PROJECT_ROOT}/out/masterfiles":/var/cfengine/inputs $image bash
 
 # start the container, for repeated use
-ls -la /var/lib/docker
+sudo ls -la /var/lib/docker
 sudo systemctl start docker
 sudo systemctl enable docker
 sudo docker run -d -v "${PROJECT_ROOT}/out/masterfiles":/var/cfengine/inputs --name $name $image
