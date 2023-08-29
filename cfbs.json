@@ -37,8 +37,7 @@
       "tags": ["local"],
       "added_by": "cfbs add",
       "steps": [
-        "directory ./ services/cfbs/overlay/",
-        "policy_files services/cfbs/overlay/"
+        "directory ./ ./"
       ]
     }
   ],

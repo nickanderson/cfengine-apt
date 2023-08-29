@@ -49,7 +49,7 @@ bundle agent check_state
   commands:
       "/bin/echo File for pinned package exists as expected"
         classes => results( "namespace", "test_pinned_package_config_file_present" ),
-        if => fileexists( "$(apt:package_version_priority_pinned.preferences_dir)/zzzpackage" );
+        if => fileexists( "$(apt:package_version_priority_pinned.preferences_dir)/zpackage" );
 
       "/bin/echo File for pinned package absent as expected"
         classes => results( "namespace", "test_pinned_package_config_file_absent" ),
@@ -63,14 +63,14 @@ bundle agent check_report
                                    "Test that config file for pinned package is present",
                                    "error: Pinned package config $(apt:package_version_pinned_priority.preferences_dir)/zpackage missing",
                                    "trace",
-                                   "TAP");
+                                   "delayed-tap");
 
       "Test that apackage pin is absent"
         usebundle => testing_ok_if("test_pinned_package_config_file_absent_repaired",
                                    "Test that config file for pinned package is absent",
                                    "error: Pinned package config $(apt:package_version_pinned_priority.preferences_dir)/apackage present",
                                    "trace",
-                                   "TAP");
+                                   "delayed-tap");
 
       # Write out the TAP report
       "TAP Report"
