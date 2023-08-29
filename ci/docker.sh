@@ -14,7 +14,7 @@ name=test
 #docker run -it -v "${PROJECT_ROOT}/out/masterfiles":/var/cfengine/inputs $image bash
 
 # start the container, for repeated use
-docker run -d -v "${PROJECT_ROOT}/out/masterfiles":/var/cfengine/inputs --name $name $image
+sudo docker run -d -v "${PROJECT_ROOT}/out/masterfiles":/var/cfengine/inputs --name $name $image
 
 # validate policy
 docker exec -i $name sh -c "cf-promises"
