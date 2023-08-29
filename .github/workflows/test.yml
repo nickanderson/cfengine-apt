@@ -14,5 +14,5 @@ jobs:
       - name: Test Summary
         uses: mikepenz/action-junit-report@v3
         with:
-          report_paths: "out/masterfiles/**/test-*.xml"
+          report_paths: '**/test-*.xml'
         if: always()

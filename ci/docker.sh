@@ -23,12 +23,4 @@ done
 whoami
 # cfengine policy seems to create dirs owned by root:root even outside the container :( so fix it
 sudo chown -R $(whoami) out/masterfiles/services/cfbs/tests
-
-        ls -l | grep out
-        ls -l out | grep masterfiles
-        ls -l out/masterfiles | grep services
-        ls -l out/masterfiles/services | grep cfbs
-        ls -l out/masterfiles/services/cfbs | grep tests
-        ls -l out/masterfiles/services/cfbs/tests | grep pin-package
-        ls -l out/masterfiles/services/cfbs/tests/pin-package | grep artifacts
-ls -l out/masterfiles/services/cfbs/tests/pin-package/artifacts
+find . -type f -name 'test*xml'
