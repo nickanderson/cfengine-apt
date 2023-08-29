@@ -1,6 +1,8 @@
 # https://docs.github.com/en/actions/quickstart
 name: test cfengine-apt module
 on: [push]
+permissions:
+  checks: write
 jobs:
   test:
     runs-on: ubuntu-latest
