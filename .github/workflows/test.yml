@@ -16,3 +16,4 @@ jobs:
         with:
           report_paths: '**/test-*.xml'
         if: always()
+      - uses: pcolby/tap-summary@v1
