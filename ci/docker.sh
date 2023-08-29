@@ -21,6 +21,8 @@ for test in $(find tests -name '*.cf'); do
   docker run -v "${PROJECT_ROOT}/out/masterfiles":/var/cfengine/inputs $image sh -c "cf-agent -KIf services/cfbs/$test"
 done
 whoami
+# cfengine policy seems to create dirs owned by root:root even outside the container :( so fix it
+sudo chown -R $(whoami) out/masterfiles/services/cfbs/tests
 
         ls -l | grep out
         ls -l out | grep masterfiles
