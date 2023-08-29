@@ -49,7 +49,7 @@ bundle agent check_state
   commands:
       "/bin/echo File for pinned package exists as expected"
         classes => results( "namespace", "test_pinned_package_config_file_present" ),
-        if => fileexists( "$(apt:package_version_priority_pinned.preferences_dir)/zpackage" );
+        if => fileexists( "$(apt:package_version_priority_pinned.preferences_dir)/zzzpackage" );
 
       "/bin/echo File for pinned package absent as expected"
         classes => results( "namespace", "test_pinned_package_config_file_absent" ),
