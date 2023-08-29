@@ -10,7 +10,7 @@ jobs:
       - run: sudo apt update -qy && sudo apt install -qy python3-pip && pip3 install cfbs
       - run: ci/docker.sh
       - name: Test Summary
-        uses: test-summary/action@v2
+        uses: mikepenz/action-junit-report@v3
         with:
           paths: "out/masterfiles/**/test-*.xml"
         if: always()
