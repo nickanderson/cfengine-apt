@@ -20,10 +20,13 @@ docker run -v "${PROJECT_ROOT}/out/masterfiles":/var/cfengine/inputs $image sh -
 for test in $(find tests -name '*.cf'); do
   docker run -v "${PROJECT_ROOT}/out/masterfiles":/var/cfengine/inputs $image sh -c "cf-agent -KIf services/cfbs/$test"
 done
+whoami
 
         ls -l | grep out
         ls -l out | grep masterfiles
         ls -l out/masterfiles | grep services
         ls -l out/masterfiles/services | grep cfbs
         ls -l out/masterfiles/services/cfbs | grep tests
-        ls -l out/masterfiles/services/cfbs/tests/pin-packages
+        ls -l out/masterfiles/services/cfbs/tests | grep pin-package
+        ls -l out/masterfiles/services/cfbs/tests/pin-package | grep artifacts
+ls -l out/masterfiles/services/cfbs/tests/pin-package/artifacts
