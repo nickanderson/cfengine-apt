@@ -25,4 +25,4 @@ done
 whoami
 # cfengine policy seems to create dirs owned by root:root even outside the container :( so fix it
 #sudo chown -R $(whoami) out/masterfiles/services/cfbs/tests
-find . -type f name '*.tap' | xargs cat
+find . -name '*.tap' | xargs cat
