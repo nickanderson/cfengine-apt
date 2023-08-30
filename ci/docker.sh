@@ -32,13 +32,12 @@ while IFS= read -r -d '' test; do
   fi
 done< <(find tests -name '*.cf' -type f -print0)
 
-echo "### test results ###'
-find out/masterfiles -name '*.tap' | xargs cat # just show all the results
-
-echo "### errors? ###"
+echo "### Test Results ###"
 exit_code=0 # assume pass if no failures found
 while IFS= read -r -d '' tap; do
-  if grep "not ok" "$tap"; then
+  echo "### $tap ###"
+  cat $tap
+  if grep "not ok" "$tap" >/dev/null; then
     exit_code=1
   fi
 done< <(find out/masterfiles -name '*.tap' -type f -print0)
