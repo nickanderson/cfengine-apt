@@ -198,7 +198,18 @@ bundle agent testing_generic_report(format, outfile)
     tap::
       "tap_tests" data => mergedata(tests_passed, tests_failed, tests_skipped, tests_todo);
 
-      "tap_results" data => parsejson(string_mustache('[{{#-top-}} "{{tap_message}}", {{/-top-}}]', tap_tests));
+      "tap_results" data => parsejson(string_mustache(
+        concat(
+          '[',
+          '{{#-top-}}',
+          '{{#fail_message?}}not ok{{/fail_message?}}',
+          '"',
+          '{{^fail_message?}}ok {{/fail_message?}}',
+          '{{test_offset}} {{test_message}}',
+          '",',
+          '{{/-top-}}',
+          ']'),
+        tap_tests));
 
     tap.inform_mode::
       "tap_tests_info" string => format("%S", tap_tests);
@@ -220,9 +231,6 @@ bundle agent testing_generic_report(format, outfile)
         edit_template => "$(this.promise_dirname)/templates/tap.mustache";
 
   reports:
-    any::
-      "CRAIG tap_tests: ${with}" with => storejson(tap_tests);
-      "CRAIG tap_results: ${with}" with => storejson(tap_results);
     junit.stdout::
       "$(const.n)$(junit_out)";
 
