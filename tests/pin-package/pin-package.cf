@@ -61,14 +61,14 @@ bundle agent check_report
       "Test that zpackage pin exists"
         usebundle => testing_ok_if("test_pinned_package_config_file_present_repaired",
                                    "Test that config file for pinned package is present",
-                                   "error: Pinned package config $(apt:package_version_pinned_priority.preferences_dir)/zpackage missing",
+                                   "error: Pinned package config $(apt:package_version_priority_pinned.preferences_dir)/zpackage missing",
                                    "trace",
                                    "delayed-tap");
 
       "Test that apackage pin is absent"
         usebundle => testing_ok_if("test_pinned_package_config_file_absent_repaired",
                                    "Test that config file for pinned package is absent",
-                                   "error: Pinned package config $(apt:package_version_pinned_priority.preferences_dir)/apackage present",
+                                   "error: Pinned package config $(apt:package_version_priority_pinned.preferences_dir)/apackage present",
                                    "trace",
                                    "delayed-tap");
 
