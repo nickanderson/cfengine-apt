@@ -54,18 +54,18 @@ bundle agent check_report
       "Test that zpackage pin exists"
         usebundle => testing_ok_if("test_pinned_package_config_file_present_repaired",
                                    "Test that config file for pinned package is present",
-                                   "error: Pinned package config $(apt:package_version_pinned_priority.preferences_dir)/zpackage missing",
+                                   "error: Pinned package config $(apt:package_version_priority_pinned.preferences_dir)/zpackage missing",
                                    "trace",
-                                   "jUnit");
+                                   "delayed-tap");
 
       "Test that apackage pin is absent"
         usebundle => testing_ok_if("test_pinned_package_config_file_absent_repaired",
                                    "Test that config file for pinned package is absent",
-                                   "error: Pinned package config $(apt:package_version_pinned_priority.preferences_dir)/apackage present",
+                                   "error: Pinned package config $(apt:package_version_priority_pinned.preferences_dir)/apackage present",
                                    "trace",
-                                   "jUnit");
+                                   "delayed-tap");
 
-      # Write out the jUnit report
-      "jUnit Report"
-        usebundle => testing_junit_report( "$(this.promise_filename)/artifacts/.test-result.xml" );
+      # Write out the TAP report
+      "TAP Report"
+        usebundle => testing_tap_report( "$(this.promise_dirname)/artifacts/test-result.tap" );
 }

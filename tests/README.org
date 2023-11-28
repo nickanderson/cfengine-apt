@@ -14,6 +14,13 @@ For example the following test execution run unprivileged produces errors about 
   :
 #+end_src
 
+Alternately, run all tests from top of this project:
+
+#+begin_src sh :results output :exports both
+  exec 2>&1
+  ./ci/docker.sh 2>&1 | tee log
+#+end_src
+
 #+RESULTS:
 #+begin_example
    error: Cannot set ownership on file '/home/nickanderson/src/nickanderson/cfengine-apt/tests/pin-package/artifacts'. (chown: Operation not permitted)

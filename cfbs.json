@@ -2,6 +2,33 @@
   "name": "cfengine-apt",
   "description": "Policy to manage aspects of the apt package manager.",
   "type": "module-repo",
+  "build": [
+    {
+      "name": "./policy/",
+      "description": "Local subdirectory added using cfbs command line",
+      "tags": ["local"],
+      "added_by": "cfbs add",
+      "steps": [
+        "directory ./ services/cfbs/policy/",
+        "policy_files services/cfbs/policy/"
+      ]
+    },
+    {
+      "name": "./tests/",
+      "description": "Local subdirectory added using cfbs command line",
+      "tags": ["local"],
+      "added_by": "cfbs add",
+      "steps": ["directory ./ services/cfbs/tests/"]
+    },
+    {
+      "name": "masterfiles",
+      "description": "Official CFEngine Masterfiles Policy Framework (MPF)",
+      "url": "https://github.com/cfengine/masterfiles",
+      "commit": "ae29249deacbf6acd2052bd070490c7af73a12a8",
+      "steps": ["run ./prepare.sh -y", "copy ./ ./"],
+      "added_by": "cfbs add"
+    }
+  ],
   "provides": {
     "library-apt-pin-package-version-priority": {
       "description": "Specify a packages pinned state with version and priority.",

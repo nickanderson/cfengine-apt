@@ -1,0 +1,13 @@
+# https://docs.github.com/en/actions/quickstart
+name: test cfengine-apt module
+on: [push]
+permissions:
+  checks: write
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      - run: sudo apt update -qy && sudo apt install -qy python3-pip && pip3 install cfbs
+      - run: ci/docker.sh

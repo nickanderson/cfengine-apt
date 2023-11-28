@@ -72,3 +72,12 @@ bundle agent example
         }
     }
   #+end_src
+
+** tests
+
+Run with
+
+./ci/docker.sh 2>&1 | tee log
+less log
+
+See tests directory for more details and the tests themselves.
