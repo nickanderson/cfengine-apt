@@ -30,15 +30,6 @@
       "tags": ["local"],
       "added_by": "cfbs add",
       "steps": ["directory ./ services/cfbs/tests/"]
-    },
-    {
-      "name": "./overlay/",
-      "description": "Local subdirectory added using cfbs command line",
-      "tags": ["local"],
-      "added_by": "cfbs add",
-      "steps": [
-        "directory ./ ./"
-      ]
     }
   ],
   "provides": {
