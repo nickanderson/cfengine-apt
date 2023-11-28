@@ -4,17 +4,6 @@
   "type": "module-repo",
   "build": [
     {
-      "name": "masterfiles",
-      "description": "Official CFEngine Masterfiles Policy Framework (MPF).",
-      "tags": ["supported", "base"],
-      "repo": "https://github.com/cfengine/masterfiles",
-      "by": "https://github.com/cfengine",
-      "version": "3.21.2",
-      "commit": "f495603285f9bd90d5d36df4fec4870aeee751e8",
-      "added_by": "cfbs add",
-      "steps": ["run ./prepare.sh -y", "copy ./ ./"]
-    },
-    {
       "name": "./policy/",
       "description": "Local subdirectory added using cfbs command line",
       "tags": ["local"],
@@ -30,6 +19,14 @@
       "tags": ["local"],
       "added_by": "cfbs add",
       "steps": ["directory ./ services/cfbs/tests/"]
+    },
+    {
+      "name": "masterfiles",
+      "description": "Official CFEngine Masterfiles Policy Framework (MPF)",
+      "url": "https://github.com/cfengine/masterfiles",
+      "commit": "ae29249deacbf6acd2052bd070490c7af73a12a8",
+      "steps": ["run ./prepare.sh -y", "copy ./ ./"],
+      "added_by": "cfbs add"
     }
   ],
   "provides": {
